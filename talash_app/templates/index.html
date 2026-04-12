@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TALASH — Smart HR Recruitment</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <span class="logo-icon">⬡</span>
+      <span class="logo-text">TALASH</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active" data-section="upload">
+        <span class="nav-icon">↑</span> Upload CVs
+      </a>
+      <a href="#" class="nav-item" data-section="candidates">
+        <span class="nav-icon">◈</span> Candidates
+      </a>
+      <a href="#" class="nav-item" data-section="extraction">
+        <span class="nav-icon">◎</span> Extraction
+      </a>
+      <a href="#" class="nav-item" data-section="architecture">
+        <span class="nav-icon">⬡</span> Architecture
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <span>CS417 · Spring 2026</span>
+      <span>Milestone 1</span>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+      <div class="topbar-title" id="section-title">CV Upload & Ingestion</div>
+      <div class="topbar-stats">
+        <div class="stat-pill"><span id="cv-count">0</span> CVs Loaded</div>
+        <div class="stat-pill"><span id="extract-count">0</span> Extracted</div>
+      </div>
+    </header>
+
+    <!-- SECTION: UPLOAD -->
+    <section class="section active" id="section-upload">
+      <div class="section-header">
+        <h2>Upload Candidate CVs</h2>
+        <p>Drop PDF files or select from your folder. The system will ingest and queue them for preprocessing.</p>
+      </div>
+
+      <div class="upload-area" id="drop-zone">
+        <div class="upload-icon">↑</div>
+        <div class="upload-label">Drag & drop CV files here</div>
+        <div class="upload-sub">Supports PDF format · Multiple files allowed</div>
+        <label class="btn-upload" for="file-input">Browse Files</label>
+        <input type="file" id="file-input" accept=".pdf" multiple hidden />
+      </div>
+
+      <div class="uploaded-list" id="uploaded-list">
+        <div class="list-header">
+          <span>Queued Files</span>
+          <button class="btn-process" id="process-btn" disabled>Process All →</button>
+        </div>
+        <div class="file-items" id="file-items">
+          <div class="empty-state">No files uploaded yet.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: CANDIDATES -->
+    <section class="section" id="section-candidates">
+      <div class="section-header">
+        <h2>Candidate Registry</h2>
+        <p>All parsed candidates with their basic extracted profile overview.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table" id="candidates-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Applied For</th>
+              <th>Highest Degree</th>
+              <th>University</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="candidates-body">
+            <tr><td colspan="6" class="empty-row">No candidates yet. Upload and process CVs first.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION: EXTRACTION -->
+    <section class="section" id="section-extraction">
+      <div class="section-header">
+        <h2>Structured Extraction Output</h2>
+        <p>Preprocessed data extracted from CVs — organized by candidate and category.</p>
+      </div>
+
+      <div class="extraction-controls">
+        <select id="candidate-select" class="select-input">
+          <option value="">— Select a candidate —</option>
+        </select>
+        <select id="table-select" class="select-input">
+          <option value="education">Education</option>
+          <option value="experience">Experience</option>
+          <option value="skills">Skills</option>
+          <option value="publications">Publications</option>
+        </select>
+      </div>
+
+      <div class="table-wrap" id="extraction-table-wrap">
+        <div class="empty-state">Select a candidate to view extracted data.</div>
+      </div>
+
+      <div class="export-bar">
+        <button class="btn-export" id="export-csv-btn">Export CSV ↓</button>
+        <button class="btn-export" id="export-excel-btn">Export Excel ↓</button>
+      </div>
+    </section>
+
+    <!-- SECTION: ARCHITECTURE -->
+    <section class="section" id="section-architecture">
+      <div class="section-header">
+        <h2>System Architecture</h2>
+        <p>Technical design and data flow for the TALASH preprocessing pipeline.</p>
+      </div>
+
+      <div class="arch-grid">
+        <div class="arch-card">
+          <div class="arch-step">01</div>
+          <div class="arch-title">CV Ingestion</div>
+          <div class="arch-desc">PDFs uploaded via web UI or folder monitoring. Files queued for processing pipeline.</div>
+          <div class="arch-tag">Flask · Watchdog</div>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-card">
+          <div class="arch-step">02</div>
+          <div class="arch-title">Text Extraction</div>
+          <div class="arch-desc">Each CV page converted to text using PyPDF / pdfplumber. Images rasterized for scanned docs.</div>
+          <div class="arch-tag">PyPDF · pdfplumber</div>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-card">
+          <div class="arch-step">03</div>
+          <div class="arch-title">LLM Parsing</div>
+          <div class="arch-desc">Extracted text sent to LLM with structured prompt. Returns JSON with education, experience, skills, publications.</div>
+          <div class="arch-tag">Claude API · Prompt Eng.</div>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-card">
+          <div class="arch-step">04</div>
+          <div class="arch-title">Structured Storage</div>
+          <div class="arch-desc">Parsed JSON saved to relational tables: candidates, education, experience, skills, publications.</div>
+          <div class="arch-tag">SQLite · Excel/CSV</div>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-card">
+          <div class="arch-step">05</div>
+          <div class="arch-title">Dashboard</div>
+          <div class="arch-desc">Web UI displays tabular data, candidate summary, and flags missing information for follow-up.</div>
+          <div class="arch-tag">HTML · CSS · JS</div>
+        </div>
+      </div>
+
+      <div class="wireframe-section">
+        <h3>Data Flow</h3>
+        <div class="flow-diagram">
+          <div class="flow-box source">PDF Folder</div>
+          <div class="flow-line"></div>
+          <div class="flow-box">Flask Server</div>
+          <div class="flow-line"></div>
+          <div class="flow-box">Text Extractor</div>
+          <div class="flow-line"></div>
+          <div class="flow-box highlight">LLM API</div>
+          <div class="flow-line"></div>
+          <div class="flow-box">JSON Parser</div>
+          <div class="flow-line"></div>
+          <div class="flow-box dest">Excel / SQLite</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast" id="toast"></div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
