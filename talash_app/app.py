@@ -177,10 +177,8 @@ def flatten_for_ui(data):
 
 
 if __name__ == "__main__":
-    print("=" * 55)
     print("  TALASH - CS417 Milestone 1")
     print(f"  LLM backend  : {LLM}")
     print(f"  API key set  : {'Yes' if HAS_KEY else 'No (set GEMINI_API_KEY)'}")
     print("  Running at   : http://127.0.0.1:5000")
-    print("=" * 55)
     app.run(debug=True)

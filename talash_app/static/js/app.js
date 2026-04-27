@@ -1,12 +1,12 @@
-// ── TALASH · CS417 · Milestone 1 · app.js ──────────────────────
+// TALASH · CS417 · Milestone 1 · app.js
 
-// ── STATE ─────────────────────────────────────────────────────────
+// STATE 
 const state = {
   files: [],       // { name, size, status, data }
   candidates: [],  // parsed candidate objects
 };
 
-// ── DOM REFS ──────────────────────────────────────────────────────
+//  DOM REFS
 const dropZone       = document.getElementById('drop-zone');
 const fileInput      = document.getElementById('file-input');
 const fileItems      = document.getElementById('file-items');
@@ -20,7 +20,7 @@ const extractionWrap = document.getElementById('extraction-table-wrap');
 const toast          = document.getElementById('toast');
 const sectionTitle   = document.getElementById('section-title');
 
-// ── NAV ───────────────────────────────────────────────────────────
+// NAV
 const sectionTitles = {
   upload:       'CV Upload & Ingestion',
   candidates:   'Candidate Registry',
@@ -40,7 +40,7 @@ document.querySelectorAll('.nav-item').forEach(item => {
   });
 });
 
-// ── DRAG & DROP ───────────────────────────────────────────────────
+// DRAG AND DROP  
 dropZone.addEventListener('dragover', e => {
   e.preventDefault();
   dropZone.classList.add('dragover');
@@ -102,7 +102,7 @@ function formatSize(bytes) {
   return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
 }
 
-// ── PROCESS CVs ──────────────────────────────────────────────────
+// PROCESS CVS
 processBtn.addEventListener('click', async () => {
   const queued = state.files.filter(f => f.status === 'queued');
   if (!queued.length) return;
@@ -148,7 +148,7 @@ function updateStats() {
   extractCountEl.textContent = state.candidates.length;
 }
 
-// ── CANDIDATES TABLE ──────────────────────────────────────────────
+// CANDIDATES TABLE
 function renderCandidatesTable() {
   if (!state.candidates.length) {
     candidatesBody.innerHTML = '<tr><td colspan="6" class="empty-row">No candidates yet. Upload and process CVs first.</td></tr>';
@@ -170,7 +170,7 @@ function renderCandidatesTable() {
   }).join('');
 }
 
-// ── EXTRACTION TABLE ──────────────────────────────────────────────
+// EXTRACTION TABLE
 function addCandidateToSelect(candidate) {
   const opt = document.createElement('option');
   opt.value = state.candidates.length - 1;
@@ -213,7 +213,7 @@ function renderExtractionTable() {
   `;
 }
 
-// ── EXPORT ────────────────────────────────────────────────────────
+// EXPORT
 document.getElementById('export-csv-btn').addEventListener('click', () => {
   const idx = candidateSelect.value;
   const table = tableSelect.value;
@@ -244,7 +244,7 @@ function downloadText(content, filename, type) {
   a.click();
 }
 
-// ── TOAST ─────────────────────────────────────────────────────────
+// TOAST
 let toastTimer;
 function showToast(msg, type = '') {
   toast.textContent = msg;

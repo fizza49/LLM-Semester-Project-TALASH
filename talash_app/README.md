@@ -52,6 +52,6 @@ talash_app/
 
 1. User uploads a PDF CV via the web UI
 2. Flask saves it and extracts text using `pdfplumber`
-3. Text is sent to Claude API with a structured prompt
-4. Claude returns JSON: name, education, experience, skills, publications
-5. Frontend displays data in tables; user can switch between categories and export CSV
+3. Text is sent to Gemni API with a structured prompt
+4. Gemni returns JSON: name, education, experience, skills, publications
+5. Frontend displays data in tables; user can switch between categories and export CSV or and excel file
