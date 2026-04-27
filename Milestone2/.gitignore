@@ -1,0 +1,32 @@
+# Environment
+.env
+.env.*
+!.env.example
+
+# Python cache / virtual envs
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+
+# Local app data
+uploads/
+
+# Generated analysis artifacts
+*.xlsx
+*.csv
+*.json
+*.png
+*.html
+
+# Keep source templates/static, but ignore generated standalone dashboards in outputs
+!templates/
+!static/
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
