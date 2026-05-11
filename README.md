@@ -411,7 +411,3 @@ Developed as part of an academic recruitment analytics project.
 [Sana Khan Khitran](https://github.com/sanakhitran22)
 
 [Attiqa Bano](https://github.com/AttiqaBano)
-
-- Sana Khan Khitran
-- Fizza Kashif
-- Attiqa Bano
